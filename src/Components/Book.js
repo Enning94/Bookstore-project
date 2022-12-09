@@ -1,5 +1,4 @@
 import React from 'react';
-// import './Styles/book.css';
 
 const book = ({ title, author }) => (
   <li className="wrapper">

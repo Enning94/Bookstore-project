@@ -37,7 +37,7 @@ REQUIRED SECTIONS:
 
 
 
-# 📖 [Math Magician] <a name="about-project"></a>
+# 📖 [BOOKSTORE-PROJECT] <a name="about-project"></a>
 
 **[BookStore-Project]** is a website with two subpages: "Books" and "Categories". This is an MVP version of it that:
 - Display a list of books.

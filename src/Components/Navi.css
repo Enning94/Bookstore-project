@@ -19,9 +19,7 @@
 }
 
 .nav-items {
-  display: flex;
-
-  /* opacity: .5; */
+  display:flex;
   font-family: "Montserrat", sans-serif;
   font-size: 0.813rem;
   color: #121212;

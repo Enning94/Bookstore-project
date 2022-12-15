@@ -1,32 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteBook } from '../redux/books/books';
 
-const book = ({ title, author }) => (
-  <li className="wrapper">
-    <div className="book-col">
-      <h3> Action </h3>
-      <h2 className="title">{title}</h2>
-      <p className="author">{author}</p>
-      <div className="book-col-btn">
-        <button type="button">Comments</button>
-        <span />
-        <button type="button">Remove</button>
-        <span />
-        <button type="button">Edit</button>
-      </div>
-    </div>
-    <div className="progress-update">
-      <span className="circular-progress" />
-      <div className="progress-detail">
-        <span>64%</span>
-        <span>Completed</span>
-      </div>
-    </div>
-    <div className="chapter-update">
-      <span>Current Chapter</span>
-      <span>Chapter 17</span>
-      <button type="button">UPDATED PROGRESS</button>
-    </div>
-  </li>
+const Book = ({ title, author, id }) => {
+  const dispatch = useDispatch();
 
-);
-export default book;
+  const handleDeleteBtnClick = () => {
+    dispatch(deleteBook(id));
+  };
+  return (
+    <li className="wrapper">
+      <div className="book-col">
+        <h3> Action </h3>
+        <h2 className="title">{title}</h2>
+        <p className="author">{author}</p>
+        <div className="book-col-btn">
+          <button type="button">Comments</button>
+          <span />
+          <button type="button" onClick={handleDeleteBtnClick}>Remove</button>
+          <span />
+          <button type="button">Edit</button>
+        </div>
+      </div>
+      <div className="progress-update">
+        <span className="circular-progress" />
+        <div className="progress-detail">
+          <span>64%</span>
+          <span>Completed</span>
+        </div>
+      </div>
+      <div className="chapter-update">
+        <span>Current Chapter</span>
+        <span>Chapter 17</span>
+        <button type="button">UPDATED PROGRESS</button>
+      </div>
+    </li>
+  );
+};
+export default Book;
+
+Book.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};

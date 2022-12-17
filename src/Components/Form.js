@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/books';
+import { addBooks, addBookOne } from '../redux/books/books';
 
 const Form = () => {
   const initialInputValues = {
@@ -20,15 +20,17 @@ const Form = () => {
 
   const handleAddBookBtn = (e) => {
     e.preventDefault();
-    // console.log('dispatched');
     const { title, author } = inputValues;
     const bookData = {
       title,
       author,
-      id: uuidv4(),
+      category: 'Action',
+      item_id: uuidv4(),
     };
     if (title.length > 0 && author.length > 0) {
-      dispatch(addBook(bookData));
+      dispatch(addBooks(bookData)).then(() => {
+        dispatch(addBookOne(bookData));
+      });
     }
     setInputValues({
       title: '',

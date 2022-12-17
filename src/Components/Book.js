@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteBooks, deleteBookOne } from '../redux/books/books';
+import './Styles/book.css';
 
 const Book = ({ title, author, id }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Book = ({ title, author, id }) => {
   return (
     <li className="wrapper">
       <div className="book-col">
-        <h3> Action </h3>
+        <h4 className="category"> Action </h4>
         <h2 className="title">{title}</h2>
         <p className="author">{author}</p>
         <div className="book-col-btn">

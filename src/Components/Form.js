@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addBooks, addBookOne } from '../redux/books/books';
+import './Styles/form.css';
 
 const Form = () => {
   const initialInputValues = {
@@ -39,11 +40,11 @@ const Form = () => {
   };
   return (
     <div>
-      <h1>Add a Book</h1>
+      <h2 className="form-title"> Add a Book</h2>
       <form action="" className="AddForm" onSubmit={handleAddBookBtn}>
-        <input type="text" name="title" placeholder="title" required value={inputValues.title} onChange={handleInputValue} />
+        <input type="text" className="input-field" name="title" placeholder="title" required value={inputValues.title} onChange={handleInputValue} />
         <input type="text" name="author" placeholder="author" required value={inputValues.author} onChange={handleInputValue} />
-        <input type="submit" value="Add Book" />
+        <input type="submit" className="addBtn" value="ADD BOOK" />
       </form>
     </div>
   );

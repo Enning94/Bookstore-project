@@ -1,5 +1,5 @@
 import React from 'react';
-import './Navi.css';
+import './Styles/Navi.css';
 import { NavLink } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 

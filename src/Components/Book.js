@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteBook } from '../redux/books/books';
+import { deleteBooks, deleteBookOne } from '../redux/books/books';
 
 const Book = ({ title, author, id }) => {
   const dispatch = useDispatch();
 
   const handleDeleteBtnClick = () => {
-    dispatch(deleteBook(id));
+    const data = {
+      item_id: id,
+    };
+    dispatch(deleteBooks(data)).then(() => {
+      dispatch(deleteBookOne(data));
+    });
   };
   return (
     <li className="wrapper">

@@ -1,39 +1,64 @@
-const initialState = [
-  {
-    id: '1',
-    title: 'The wilderlan',
-    author: 'Obeng Dacosta',
-  },
-  {
-    id: '2',
-    title: 'In the chest of a woman',
-    author: 'Yaw Adjei',
-  },
-  {
-    id: '3',
-    title: 'The lows and highs',
-    author: 'Nelson Dagadu',
-  },
-];
+/* eslint-disable no-param-reassign */
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-// Actions
-const ADD_BOOK = 'ADD_BOOK';
-const DELETE_BOOK = 'DELETE_BOOK';
+const Url = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/l2QuGNJoqalzKT1sC4CR/books';
 
-// Reducer
-const booksReducer = (state = initialState, action = {}) => {
-  switch (action.type) {
-    // do reducer stuff
-    case ADD_BOOK:
-      return [...state, action.payload];
-    case DELETE_BOOK:
-      return state.filter((element) => element.id !== action.id);
-    default:
-      return state;
-  }
-};
+const initialState = { books: [] };
 
-// Action Creators
-export const addBook = (book) => ({ type: ADD_BOOK, payload: book });
-export const deleteBook = (index) => ({ type: DELETE_BOOK, id: index });
-export default booksReducer;
+export const addBooks = createAsyncThunk('books/addBooks', async (bookData) => {
+  const response = await fetch(Url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(bookData),
+  });
+  return response.json();
+});
+
+export const deleteBooks = createAsyncThunk('books/removeBooks', async (bookData) => {
+  const response = await fetch(`${Url}/${bookData.item_id}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(bookData),
+  });
+  return response.json();
+});
+
+export const getBooks = createAsyncThunk('books/getBooks', async () => {
+  const response = await fetch(Url);
+  const data = await response.json();
+  return data;
+});
+
+const bookSlice = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    addBookOne: (state, action) => {
+      const data = { ...action.payload };
+      state.books.push(data);
+    },
+    deleteBookOne: (state, action) => {
+      state.books = state.books.filter(
+        (book) => book.item_id !== action.payload.item_id,
+      );
+    },
+  },
+
+  extraReducers: {
+    [getBooks.fulfilled]: (state, action) => {
+      const books = Object.keys(action.payload).map((key) => ({
+        ...action.payload[key][0],
+        item_id: key,
+      }));
+      state.books = books;
+    },
+  },
+});
+export const { addBookOne, deleteBookOne } = bookSlice.actions;
+export default bookSlice.reducer;

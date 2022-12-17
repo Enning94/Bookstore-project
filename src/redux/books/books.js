@@ -1,8 +1,6 @@
 /* eslint-disable no-param-reassign */
-
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-// const uniqueID = 'l2QuGNJoqalzKT1sC4CR';
 const Url = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/l2QuGNJoqalzKT1sC4CR/books';
 
 const initialState = { books: [] };
